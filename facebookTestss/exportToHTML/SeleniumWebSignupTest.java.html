@@ -1,0 +1,218 @@
+<html>
+<head>
+<title>SeleniumWebSignupTest.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6a8759;}
+.s4 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+SeleniumWebSignupTest.java</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">org.openqa.selenium.By</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">org.openqa.selenium.WebDriver</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">org.openqa.selenium.chrome.ChromeDriver</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">org.testng.annotations.AfterTest</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">org.testng.annotations.BeforeTest</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">org.testng.annotations.Test</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">SeleniumWebSignupTest {</span>
+    <span class="s2">//import selenium WebDriver</span>
+    <span class="s0">private </span><span class="s1">WebDriver driver</span><span class="s0">;</span>
+
+    <span class="s1">@BeforeTest</span>
+    <span class="s0">public void </span><span class="s1">start() </span><span class="s0">throws </span><span class="s1">InterruptedException {</span>
+        <span class="s2">//locate where chromedriver is</span>
+        <span class="s1">System.setProperty(</span><span class="s3">&quot;web-driver.chrome.driver&quot;</span><span class="s0">, </span><span class="s3">&quot;resources/chromedriver.exe&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//1.Open your chrome browser</span>
+        <span class="s1">driver = </span><span class="s0">new </span><span class="s1">ChromeDriver()</span><span class="s0">;</span>
+        <span class="s2">//2. Input your selenium Demo Page URL (https://selenium-blog.herokuapp.com)</span>
+        <span class="s1">driver.get(</span><span class="s3">&quot;https://selenium-blog.herokuapp.com&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//Test 1. verify that user input the right URL on the right webpage</span>
+        <span class="s0">if</span><span class="s1">(driver.getCurrentUrl().contains(</span><span class="s3">&quot;https://selenium-blog.herokuapp.com&quot;</span><span class="s1">))</span>
+            <span class="s2">//Pass</span>
+            <span class="s1">System.out.println(</span><span class="s3">&quot;correct webpage&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">else</span>
+            <span class="s2">//fail</span>
+        <span class="s1">System.out.println(</span><span class="s3">&quot;wrong webpage&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s1">Thread.sleep(</span><span class="s4">5000</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//3.Maximize the browser</span>
+        <span class="s1">driver.manage().window().maximize()</span><span class="s0">;</span>
+        <span class="s2">//4. Click on the signup button to open the signup page</span>
+        <span class="s1">driver.findElement(By.xpath(</span><span class="s3">&quot;/html/body/div[2]/div/a[2]&quot;</span><span class="s1">)).click()</span><span class="s0">;</span>
+        <span class="s1">Thread.sleep(</span><span class="s4">5000</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s1">@Test (priority = </span><span class="s4">5</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">negativesignup() </span><span class="s0">throws </span><span class="s1">InterruptedException {</span>
+        <span class="s2">//Click on the signup button to open the signup page</span>
+        <span class="s1">driver.findElement(By.xpath(</span><span class="s3">&quot;/html/body/div[2]/div/a[2]&quot;</span><span class="s1">)).click()</span><span class="s0">;</span>
+        <span class="s1">Thread.sleep(</span><span class="s4">5000</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">// Test 3.verify that user cannot signup with username less than 3 characters</span>
+        <span class="s2">// Input username on the username field</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;user_username&quot;</span><span class="s1">)).sendKeys(</span><span class="s3">&quot;yo&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//6. Input email address on email field and input email address in the email field</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;user_email&quot;</span><span class="s1">)).sendKeys(</span><span class="s3">&quot;ratt72@mailinator.com&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//7. Locate the password field and input your password on the password field</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;user_password&quot;</span><span class="s1">)).sendKeys(</span><span class="s3">&quot;basiratt72&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//8. Click on the signup button</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;submit&quot;</span><span class="s1">)).click()</span><span class="s0">;</span>
+        <span class="s1">Thread.sleep(</span><span class="s4">5000</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test (priority = </span><span class="s4">6</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">testWrongemail() </span><span class="s0">throws </span><span class="s1">InterruptedException {</span>
+        <span class="s2">//Click on the signup button to open the signup page</span>
+        <span class="s1">driver.findElement(By.xpath(</span><span class="s3">&quot;/html/body/div[2]/div/a[2]&quot;</span><span class="s1">)).click()</span><span class="s0">;</span>
+        <span class="s1">Thread.sleep(</span><span class="s4">5000</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//5. Input username on the username field</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;user_username&quot;</span><span class="s1">)).sendKeys(</span><span class="s3">&quot;basirat73&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//6. Input email address on email field</span>
+        <span class="s2">//Test 4. verify that user cannot sign in with invalid email address</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;user_email&quot;</span><span class="s1">)).sendKeys(</span><span class="s3">&quot;ratt73@mailinator&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//7. Locate the password field and input your password on the password field</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;user_password&quot;</span><span class="s1">)).sendKeys(</span><span class="s3">&quot;basiratt73&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//8. Click on the signup button</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;submit&quot;</span><span class="s1">)).click()</span><span class="s0">;</span>
+        <span class="s1">Thread.sleep(</span><span class="s4">5000</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test (priority = </span><span class="s4">7</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">testincompletepassword () </span><span class="s0">throws </span><span class="s1">InterruptedException {</span>
+        <span class="s2">//Click on the signup button to open the signup page</span>
+        <span class="s1">driver.findElement(By.xpath(</span><span class="s3">&quot;/html/body/div[2]/div/a[2]&quot;</span><span class="s1">)).click()</span><span class="s0">;</span>
+        <span class="s1">Thread.sleep(</span><span class="s4">5000</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//5. Input username on the username field</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;user_username&quot;</span><span class="s1">)).sendKeys(</span><span class="s3">&quot;basirat74&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//6. Input email address on email field</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;user_email&quot;</span><span class="s1">)).sendKeys(</span><span class="s3">&quot;ratt74@mailinator.com&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//7. Locate the password field and input your password on the password field</span>
+        <span class="s2">// Test 5. verify that user cannot sign in with password less than 8 characters</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;user_password&quot;</span><span class="s1">)).sendKeys(</span><span class="s3">&quot;b74&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//8. Click on the signup button</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;submit&quot;</span><span class="s1">)).click()</span><span class="s0">;</span>
+        <span class="s1">Thread.sleep(</span><span class="s4">5000</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test (priority = </span><span class="s4">8</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">testblankfield() </span><span class="s0">throws </span><span class="s1">InterruptedException {</span>
+        <span class="s2">//Click on the signup button to open the signup page</span>
+        <span class="s1">driver.findElement(By.xpath(</span><span class="s3">&quot;/html/body/div[2]/div/a[2]&quot;</span><span class="s1">)).click()</span><span class="s0">;</span>
+        <span class="s1">Thread.sleep(</span><span class="s4">5000</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//5. Input username on the username field</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;user_username&quot;</span><span class="s1">)).sendKeys(</span><span class="s3">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//6. Input email address on email field</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;user_email&quot;</span><span class="s1">)).sendKeys(</span><span class="s3">&quot;ratt75@mailinator.com&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//7. Locate the password field and input your password on the password field</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;user_password&quot;</span><span class="s1">)).sendKeys(</span><span class="s3">&quot;basiratt75&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//8. Click on the signup button</span>
+        <span class="s2">// Test 6. verify that user cannot sign in with either of all the fields blank</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;submit&quot;</span><span class="s1">)).click()</span><span class="s0">;</span>
+        <span class="s1">Thread.sleep(</span><span class="s4">5000</span><span class="s1">)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+
+
+
+    <span class="s1">@Test (priority = </span><span class="s4">0</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">positiveSignup() </span><span class="s0">throws </span><span class="s1">InterruptedException {</span>
+        <span class="s2">// Test 7.verify that user can successfully signup when valid details are inputted</span>
+        <span class="s2">//5. Input username on the username field</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;user_username&quot;</span><span class="s1">)).sendKeys(</span><span class="s3">&quot;basirat71&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//6. Input email address on email field</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;user_email&quot;</span><span class="s1">)).sendKeys(</span><span class="s3">&quot;ratt71@mailinator.com&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//7. Locate the password field and input your password on the password field</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;user_password&quot;</span><span class="s1">)).sendKeys(</span><span class="s3">&quot;basiratt71&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//8. Click on the signup button</span>
+        <span class="s1">driver.findElement(By.id(</span><span class="s3">&quot;submit&quot;</span><span class="s1">)).click()</span><span class="s0">;</span>
+        <span class="s1">Thread.sleep(</span><span class="s4">5000</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+
+
+    <span class="s1">@Test (priority = </span><span class="s4">1</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">clickuser1item() </span><span class="s0">throws </span><span class="s1">InterruptedException {</span>
+            <span class="s2">//9. Click on the username item on the list page</span>
+            <span class="s1">driver.findElement(By.xpath(</span><span class="s3">&quot;/html/body/div[2]/div[1]/ul/div/div/li[1]&quot;</span><span class="s1">)).click()</span><span class="s0">;</span>
+            <span class="s2">//Test 2. verify that when user clicks on the signup button,the user is directed to the signup page</span>
+            <span class="s1">String expectedUrl = </span><span class="s3">&quot;https://selenium-blog.herokuapp.com/signup&quot;</span><span class="s0">;</span>
+            <span class="s1">String actualUrl =driver.getCurrentUrl()</span><span class="s0">;</span>
+            <span class="s0">if</span><span class="s1">(actualUrl.contains(</span><span class="s3">&quot;expectedUrl&quot;</span><span class="s1">))</span>
+                <span class="s2">//Pass</span>
+                <span class="s1">System.out.println(</span><span class="s3">&quot;correct webpage&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s0">else</span>
+                <span class="s2">//fail</span>
+                <span class="s1">System.out.println(</span><span class="s3">&quot;wrong webpage&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">Thread.sleep(</span><span class="s4">5000</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+    <span class="s1">@Test (priority = </span><span class="s4">2</span><span class="s1">)</span>
+                <span class="s0">public void </span><span class="s1">verifyItem() </span><span class="s0">throws </span><span class="s1">InterruptedException {</span>
+        <span class="s2">//10. Search for an item (Using python with selenium) and confirm it is present</span>
+        <span class="s1">driver.findElement(By.xpath(</span><span class="s3">&quot;/html/body/div[2]/div[1]/div/div/div[1]/a&quot;</span><span class="s1">)).click()</span><span class="s0">;</span>
+            <span class="s2">//Test 9. verify that the item searched for on the User1 page is present</span>
+        <span class="s1">String expectedPageUrl = </span><span class="s3">&quot;/users/1&quot;</span><span class="s0">;</span>
+        <span class="s1">String actualPageUrl = driver.getCurrentUrl()</span><span class="s0">;</span>
+            <span class="s0">if</span><span class="s1">(actualPageUrl.contains(expectedPageUrl))</span>
+                <span class="s2">//Pass</span>
+                <span class="s1">System.out.println(</span><span class="s3">&quot;correct User1page&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s0">else</span>
+                <span class="s2">//fail</span>
+                <span class="s1">System.out.println(</span><span class="s3">&quot;wrong User1page&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">Thread.sleep(</span><span class="s4">5000</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Test (priority = </span><span class="s4">3</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">verifyItem2 () </span><span class="s0">throws </span><span class="s1">InterruptedException {</span>
+        <span class="s2">//11. Search for an item in (using python with selenium ) and confirm it is present</span>
+        <span class="s1">driver.findElement (By.xpath(</span><span class="s3">&quot;/html/body/div[2]/div[2]/div/div/div[1]/a&quot;</span><span class="s1">)).click()</span><span class="s0">;</span>
+        <span class="s2">//Test 10. verify that the item articles/1 is present</span>
+        <span class="s1">String expectedPageUrl = </span><span class="s3">&quot;/articles/4&quot;</span><span class="s0">;</span>
+        <span class="s1">String actualPageUrl = driver.getCurrentUrl()</span><span class="s0">;</span>
+        <span class="s0">if </span><span class="s1">(actualPageUrl.contains(expectedPageUrl))</span>
+            <span class="s2">//Pass</span>
+            <span class="s1">System.out.println(</span><span class="s3">&quot;correct user 1678412985 &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">else</span>
+            <span class="s2">//fail</span>
+            <span class="s1">System.out.println(</span><span class="s3">&quot;wrong user 1678412985&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">Thread.sleep(</span><span class="s4">5000</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+
+    <span class="s1">@Test(priority = </span><span class="s4">4</span><span class="s1">)</span>
+    <span class="s0">public void </span><span class="s1">logoutsucessfully() {</span>
+         <span class="s2">//11. Click on log out</span>
+        <span class="s1">driver.findElement(By.xpath(</span><span class="s3">&quot;//*[@id=</span><span class="s0">\&quot;</span><span class="s3">bs-example-navbar-collapse-1</span><span class="s0">\&quot;</span><span class="s3">]/ul/li[3]/a&quot;</span><span class="s1">)).click()</span><span class="s0">;</span>
+            <span class="s2">//Test 10.verify that when the user log out he/she is directed back to the home page</span>
+            <span class="s1">String expectedTitle = </span><span class="s3">&quot;Alphblog&quot;</span><span class="s0">;</span>
+            <span class="s1">String actualTitle = driver.getTitle()</span><span class="s0">;</span>
+            <span class="s0">if</span><span class="s1">(expectedTitle.contains(actualTitle))</span>
+                <span class="s2">//Pass</span>
+                <span class="s1">System.out.println(</span><span class="s3">&quot;correct user1 page&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s0">else</span>
+                <span class="s2">//fail</span>
+                <span class="s1">System.out.println(</span><span class="s3">&quot;wrong user1page&quot;</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@AfterTest</span>
+    <span class="s0">public void </span><span class="s1">closeBrowser() {</span>
+        <span class="s2">//12. Quit your browser</span>
+        <span class="s1">driver.quit()</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+
+<span class="s1">}</span>
+</pre>
+</body>
+</html>
